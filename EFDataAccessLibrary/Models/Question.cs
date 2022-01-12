@@ -16,7 +16,7 @@ namespace EFDataAccessLibrary.Models
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 
-        public Guid QuestionGuid { get; set; } = Guid.NewGuid();
+        public Guid QuestionGuid { get; set; }
         public string QuestionStr { get; set; }
     }
 }

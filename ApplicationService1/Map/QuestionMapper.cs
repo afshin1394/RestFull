@@ -9,14 +9,17 @@ using System.Threading.Tasks;
 
 namespace ApplicationService.Map
 {
+    public class AutoMapperConfiguration
+    {
+       
+    }
     public class QuestionMapper : Profile
     {
-
+        
         public QuestionMapper()
         {
             CreateMap<Question, QuestionInput>();
-                
-            CreateMap<QuestionInput,Question>();
+            CreateMap<QuestionInput, Question>();
         }
     }
 }

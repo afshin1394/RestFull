@@ -14,8 +14,10 @@ namespace TruthDareGrpcService.Map.Question
         
         public QuestionMapper()
         {
-            CreateMap<QuestionInput, Protos.Question>();
-            CreateMap<Protos.InsertingQuestion, QuestionInput>();
+            CreateMap<QuestionInput, Protos.Question>().ForAllOtherMembers(x => x.Ignore());
+            CreateMap<IEnumerable<QuestionInput>,IEnumerable<Protos.Question>>().ForAllOtherMembers(x => x.Ignore());
+            CreateMap<Protos.InsertingQuestion, QuestionInput>().ForAllOtherMembers(x => x.Ignore());
+            CreateMap<IEnumerable<Protos.InsertingQuestion>,IEnumerable<QuestionInput>>().ForAllOtherMembers(x => x.Ignore());
 
         }
     }

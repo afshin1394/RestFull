@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Mvc;
 namespace RestApi.Common
 {
     // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
@@ -22,24 +22,11 @@ namespace RestApi.Common
 
         public async Task Invoke(HttpContext httpContext)
         {
-           
-            switch (httpContext.Response.StatusCode)
-            {
-                case StatusCodes.Status200OK:
-                    break;
-                case StatusCodes.Status400BadRequest:
-                    break;
-                case StatusCodes.Status404NotFound:
-                    break;
-                case StatusCodes.Status503ServiceUnavailable:
-                    
-                    break;
-                case StatusCodes.Status504GatewayTimeout:
-                    break;
-            }
-            
+            if (!httpContext.Response.StatusCode.Equals(StatusCodes.Status200OK) || !httpContext.Response.StatusCode.Equals(StatusCodes.Status201Created))
+                await _next(httpContext);
 
-             await( _next(httpContext));
+            else
+                await (_next(httpContext));
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using ApplicationService.DareRepository.ViewModels.DareViewModel.Inputs;
+using ApplicationService.Map;
 using AutoMapper;
 using EFDataAccessLibrary.Commons;
 using EFDataAccessLibrary.DataAccess;
@@ -24,17 +25,20 @@ namespace ApplicationService.DareRepository
             _mapper = mapper;
         }
 
-        public void Add(DareInput t)
+        public DareInput Add(DareInput t)
         {
             appDBContext.Add(t);
             appDBContext.SaveChanges();
+            return t;
         }
 
-        public void Delete(DareInput t)
+        public DareInput Delete(object t)
         {
-            var dare = appDBContext.Dares.FirstOrDefault(e => e.DareStr == t.DareStr);
+            var dare = appDBContext.Dares.FirstOrDefault(e => e.DareGuid.ToString() == t.ToString());
             appDBContext.Remove(t);
             appDBContext.SaveChanges();
+
+            return ObjectMapper.Mapper.Map<Dare,DareInput>(dare);
         }
 
         public async Task<IEnumerable<DareInput>> FindByID(int id)
@@ -49,12 +53,12 @@ namespace ApplicationService.DareRepository
             return result;
         }
 
-        public Boolean SaveChanges()
+        public bool SaveChanges()
         {
             
             switch (appDBContext.SaveChanges())
             {
-                case 1:
+                case 0:
                     return true;
                 default:
                     return false;

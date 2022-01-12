@@ -13,7 +13,8 @@ namespace ApplicationService.Map
     {
         public DareMapper()
         {
-            CreateMap< Dare, DareInput>();
+            CreateMap<Dare, DareInput>();
+            CreateMap<DareInput, Dare>();
         }
     }
 }

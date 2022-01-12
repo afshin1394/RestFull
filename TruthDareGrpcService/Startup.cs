@@ -2,6 +2,7 @@
 using ApplicationService.DareRepository.ViewModels.DareViewModel.Inputs;
 using ApplicationService.QuestionR;
 using ApplicationService.QuestionRepository.ViewModels.QuestionViewModel.Inputs;
+using AutoMapper;
 using EFDataAccessLibrary.Commons;
 using EFDataAccessLibrary.DataAccess;
 using EFDataAccessLibrary.Models;
@@ -42,7 +43,9 @@ namespace TruthDareGrpcService
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-          
+        
+
+
             //services.AddScoped<QuestionService>();
             services.AddGrpc();
             services.AddAutoMapper(typeof(Startup));
@@ -58,6 +61,9 @@ namespace TruthDareGrpcService
 
 
         }
+
+
+
 
 
 
@@ -80,8 +86,6 @@ namespace TruthDareGrpcService
          {
              endpoints.MapGrpcService<QuestionService>();
              endpoints.MapGrpcService<DareService>();
-
-
 
          });
         }

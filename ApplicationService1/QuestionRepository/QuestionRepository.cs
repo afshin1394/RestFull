@@ -1,9 +1,11 @@
-﻿using ApplicationService.QuestionRepository.ViewModels.QuestionViewModel.Inputs;
+﻿using ApplicationService.Map;
+using ApplicationService.QuestionRepository.ViewModels.QuestionViewModel.Inputs;
 using AutoMapper;
 using EFDataAccessLibrary.Commons;
 using EFDataAccessLibrary.DataAccess;
 using EFDataAccessLibrary.Models;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,47 +16,56 @@ namespace ApplicationService.QuestionR
     {
         private readonly AppDBContext appDBContext;
         private readonly ILogger<QuestionRepository> _logger;
-        private readonly IMapper mapper;
+        private readonly IMapper _mapper;
 
 
         public QuestionRepository(AppDBContext appDBContext,ILogger<QuestionRepository> logger, IMapper mapper)
         {
             this.appDBContext = appDBContext;
-            this._logger = logger;
-            this.mapper = mapper;
+            _logger = logger;
+            _mapper = mapper;
         }
 
-        public void Add(QuestionInput t)
+        public QuestionInput Add(QuestionInput t)
         {
             
-            
-            appDBContext.Add(t);
+            appDBContext.Add(ObjectMapper.Mapper.Map<QuestionInput,Question>(t));
             appDBContext.SaveChanges();
+            
+            return t;
         }
 
-        public void Delete(QuestionInput t)
+        public QuestionInput Delete(object guid)
         {
-
-            
-            var search = appDBContext.Questions.FirstOrDefault(e => e.QuestionStr == t.QuestionStr);
+            //for (int i = 0; i < appDBContext.Questions.ToList().Count(); i++)
+            //{
+            //    Console.WriteLine(appDBContext.Questions.ToList().ElementAt(i).QuestionGuid);
+            //    if (appDBContext.Questions.ToList().ElementAt(i).QuestionGuid.Equals(guid))
+            //    {
+            //        Console.WriteLine("found");
+            //        appDBContext.Remove(appDBContext.Questions.ToList().ElementAt(i));
+            //        appDBContext.SaveChanges();
+            //        return ObjectMapper.Mapper.Map<Question, QuestionInput>(appDBContext.Questions.ToList().ElementAt(i));
+            //    }
+            //}
+            var search = appDBContext.Questions.FirstOrDefault(e => e.QuestionGuid.Equals(guid));
             appDBContext.Remove(search);
             appDBContext.SaveChanges();
+            return ObjectMapper.Mapper.Map<Question, QuestionInput> (search);
+
         }
 
         public async Task<IEnumerable<QuestionInput>> FindByID(int id)
         {
-
-            return mapper.Map< IEnumerable<Question>, IEnumerable<QuestionInput>>(appDBContext.Questions.Where(e => e.CategoryID == id)); 
-             
-        
+            return _mapper.Map< IEnumerable<Question>, IEnumerable<QuestionInput>>(appDBContext.Questions.Where(e => e.CategoryID == id)); 
         }
 
         public async Task<IEnumerable<QuestionInput>> GetAll()
         {
-            var result = mapper.Map<IEnumerable<Question>, IEnumerable<QuestionInput>>(appDBContext.Questions.ToList());
+            var result =  ObjectMapper.Mapper.Map<IEnumerable<Question>, IEnumerable<QuestionInput>>(appDBContext.Questions.AsEnumerable());
+            //var result = _mapper.Map<IEnumerable<Question>, IEnumerable<QuestionInput>>(appDBContext.Questions.AsEnumerable());
       
             return result;
-
         }
 
         public bool SaveChanges()
@@ -62,7 +73,7 @@ namespace ApplicationService.QuestionR
 
             switch (appDBContext.SaveChanges())
             {
-                case 1:
+                case 0:
                     return true;
                 default:
                     return false;

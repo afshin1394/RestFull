@@ -9,12 +9,16 @@ namespace ApplicationService.QuestionRepository.ViewModels.QuestionViewModel.Inp
 {
     public class QuestionInput
     {
-        public int Id { get; set; }
         public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
+        public string QuestionStr { get; set; }
+
+        /*public int? Id { get; set; }
+        public int? CategoryID { get; set; }
         public string CategoryName { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public Guid QuestionGuid { get; set; } = Guid.NewGuid();
-        public string QuestionStr { get; set; }
+        public Guid? QuestionGuid { get; set; } = Guid.NewGuid();
+        public string QuestionStr { get; set; }*/
     }
 }

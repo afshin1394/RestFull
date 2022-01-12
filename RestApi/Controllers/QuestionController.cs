@@ -10,7 +10,6 @@ using RestApi.Models.QuestionViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RestApi.Controllers
@@ -19,29 +18,44 @@ namespace RestApi.Controllers
     {
         private readonly ILogger<QuestionController> _logger;
         private readonly IMapper _mapper;
-        private readonly IRepository<DareInput> _repository;
+        private readonly IRepository<QuestionInput> _repository;
 
-        public QuestionController(ILogger<QuestionController> logger, IRepository<DareInput> repository, IMapper mapper)
+        public QuestionController(ILogger<QuestionController> logger, IRepository<QuestionInput> repository, IMapper mapper)
         {
             _logger = logger;
             _repository = repository;
             _mapper = mapper;
         }
         [Produces("application/json")]
-        [HttpGet("GetAll")]
+        [HttpGet("Questions")]
         public IActionResult Index()
         {
-            var response  = _repository.GetAll();
-            return Ok(Json(response));
+            var response = _repository.GetAll();
+            return Ok(response);
+        }
+        [Produces("application/json")]
+        [HttpPost("InsertQuestion")]
+        public IActionResult InsertQuestion([FromBody] QuestionInput questionInput)
+        {
+            var question = _repository.Add(questionInput);
+            if (question != null)
+            {
+                return Created(Request.Path.Value, Ok(_repository.Add(questionInput)));
+            }
+
+            return BadRequest();
         }
 
         [Produces("application/json")]
-        [HttpPost]
-        public IActionResult InsertQuestion([FromBody] DareInput dareInput)
+        [HttpPost("DeleteQuestion")]
+        public IActionResult DeleteQuestion([FromQuery (Name = "Guid")] Guid id) 
         {
-            _repository.Add(dareInput);
-            bool done = _repository.SaveChanges();
-            return Ok(done);
+            var question = _repository.Delete(id);
+            if (question != null)
+            {
+                return Created(Request.Path.Value, question);
+            }
+            return BadRequest();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
