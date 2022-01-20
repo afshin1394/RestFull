@@ -50,7 +50,7 @@ namespace TruthDareGrpcService
             services.AddGrpc();
             services.AddAutoMapper(typeof(Startup));
             services.AddSingleton<IRepository<QuestionInput>, QuestionRepository>();
-            services.AddSingleton<IRepository<DareInput>, DareRepository>();
+            //services.AddSingleton<IRepository<Dare>, DareRepository>();
 
 
 

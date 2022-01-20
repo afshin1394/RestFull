@@ -4,6 +4,7 @@ using ApplicationService.QuestionR;
 using ApplicationService.QuestionRepository.ViewModels.QuestionViewModel.Inputs;
 using EFDataAccessLibrary.Commons;
 using EFDataAccessLibrary.DataAccess;
+using EFDataAccessLibrary.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,8 +32,10 @@ namespace RestApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //services.AddMvc().AddControllersAsServices();
             services.AddControllers();
-            //services.AddControllersWithViews();
+            services.AddHttpContextAccessor();
             //services.AddControllers().AddJsonOptions(options =>
             //{
             //    options.JsonSerializerOptions.IgnoreNullValues = true;
@@ -45,27 +48,28 @@ namespace RestApi
                 services.AddDbContext<AppDBContext>();
 
             });
-
-            services.AddScoped<IRepository<QuestionInput>, QuestionRepository>();
             services.AddScoped<IRepository<DareInput>, DareRepository>();
 
+            services.AddScoped<IRepository<QuestionInput>, QuestionRepository>();
+
+
             //services
-       //.AddMvcCore(options =>
-       //{
-       //    options.RequireHttpsPermanent = true; // does not affect api requests
-       //    options.RespectBrowserAcceptHeader = true; // false by default
-                                                      //options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
+            //.AddMvcCore(options =>
+            //{
+            //    options.RequireHttpsPermanent = true; // does not affect api requests
+            //    options.RespectBrowserAcceptHeader = true; // false by default
+            //options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
 
-           //remove these two below, but added so you know where to place them...
+            //remove these two below, but added so you know where to place them...
 
-       //})
-       //.AddApiExplorer()
-       //.AddAuthorization()
-       //.AddFormatterMappings();
-       //.AddCacheTagHelper()
-       //.AddDataAnnotations()
-       //.AddCors()
-  
+            //})
+            //.AddApiExplorer()
+            //.AddAuthorization()
+            //.AddFormatterMappings();
+            //.AddCacheTagHelper()
+            //.AddDataAnnotations()
+            //.AddCors()
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

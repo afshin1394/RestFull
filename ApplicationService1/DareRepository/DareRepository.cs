@@ -15,40 +15,38 @@ namespace ApplicationService.DareRepository
     public class DareRepository : IRepository<DareInput>
     {
         private readonly AppDBContext appDBContext;
-        private readonly ILogger<Dare> _logger;
-        private readonly IMapper _mapper;
+        private readonly ILogger<DareInput> _logger;
 
-        public DareRepository(AppDBContext appDBContext, ILogger<Dare> logger, IMapper mapper)
+        public DareRepository(AppDBContext appDBContext, ILogger<DareInput> logger)
         {
             this.appDBContext = appDBContext;
             _logger = logger;
-            _mapper = mapper;
         }
 
         public DareInput Add(DareInput t)
         {
-            appDBContext.Add(t);
+            appDBContext.Add(ObjectMapper.Mapper.Map<DareInput, Dare>(t));
             appDBContext.SaveChanges();
+
             return t;
         }
 
-        public DareInput Delete(object t)
+        public DareInput Delete(object guid)
         {
-            var dare = appDBContext.Dares.FirstOrDefault(e => e.DareGuid.ToString() == t.ToString());
-            appDBContext.Remove(t);
+            var search = appDBContext.Dares.FirstOrDefault(e => e.DareGuid.Equals(guid));
+            appDBContext.Remove(search);
             appDBContext.SaveChanges();
-
-            return ObjectMapper.Mapper.Map<Dare,DareInput>(dare);
+            return ObjectMapper.Mapper.Map<Dare, DareInput>(search);
         }
 
         public async Task<IEnumerable<DareInput>> FindByID(int id)
         {
-            return _mapper.Map<IEnumerable<Dare>, IEnumerable<DareInput>>(appDBContext.Dares.Where(e => e.CategoryID == id));
+            return ObjectMapper.Mapper.Map<IEnumerable<Dare>, IEnumerable<DareInput>>(appDBContext.Dares.Where(e => e.CategoryID == id));
         }
 
         public async Task<IEnumerable<DareInput>> GetAll()
         {
-            var result = _mapper.Map<IEnumerable<Dare>, IEnumerable<DareInput>>(appDBContext.Dares.ToList());
+            var result = ObjectMapper.Mapper.Map<IEnumerable<Dare>, IEnumerable<DareInput>>(appDBContext.Dares.AsEnumerable());
 
             return result;
         }
@@ -64,5 +62,7 @@ namespace ApplicationService.DareRepository
                     return false;
             }
         }
+
+
     }
 }

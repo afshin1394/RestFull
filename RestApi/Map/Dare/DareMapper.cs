@@ -12,8 +12,8 @@ namespace TruthDareGrpcService.Map.Dare
     {
         public DareMapper()
         {
-            CreateMap<DareInput, DareModel>();
-            CreateMap<InsertingDare, DareInput>();
+            //CreateMap<DareInput, DareModel>();
+            //CreateMap<InsertingDare, DareInput>();
         }
     }
 }

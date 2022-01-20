@@ -17,7 +17,7 @@ namespace ApplicationService.QuestionR
         private readonly AppDBContext appDBContext;
         private readonly ILogger<QuestionRepository> _logger;
         private readonly IMapper _mapper;
-
+        private bool disposedValue;
 
         public QuestionRepository(AppDBContext appDBContext,ILogger<QuestionRepository> logger, IMapper mapper)
         {
@@ -55,6 +55,7 @@ namespace ApplicationService.QuestionR
 
         }
 
+    
         public async Task<IEnumerable<QuestionInput>> FindByID(int id)
         {
             return _mapper.Map< IEnumerable<Question>, IEnumerable<QuestionInput>>(appDBContext.Questions.Where(e => e.CategoryID == id)); 
@@ -79,5 +80,7 @@ namespace ApplicationService.QuestionR
                     return false;
             }
         }
+
+   
     }
 }
