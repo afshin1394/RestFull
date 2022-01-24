@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace RestApi.Controllers
 {
+    [Route("api/Dare")]
     public class DareController : Controller
     {
         private readonly ILogger<DareController> _logger;
@@ -25,8 +26,8 @@ namespace RestApi.Controllers
 
 
         [Produces("application/json")]
-        [HttpGet("Dares")]
-        public IActionResult Index()
+        [HttpGet("GetAll")]
+        public IActionResult index()
         {
             var response = _repository.GetAll();
             return Ok(response);

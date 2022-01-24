@@ -41,8 +41,6 @@ namespace TruthDareGrpcService
                     });
                     webBuilder.ConfigureKestrel(options =>
                     {
-                       
-                       
                         options.ListenAnyIP(5000);
                     });
                 });

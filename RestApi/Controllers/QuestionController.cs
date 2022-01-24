@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace RestApi.Controllers
 {
+    [Route("api/Question")]
     public class QuestionController : Controller
     {
         private readonly ILogger<QuestionController> _logger;
@@ -27,7 +28,7 @@ namespace RestApi.Controllers
             _mapper = mapper;
         }
         [Produces("application/json")]
-        [HttpGet("Questions")]
+        [HttpGet("GetAll")]
         public IActionResult Index()
         {
             var response = _repository.GetAll();
