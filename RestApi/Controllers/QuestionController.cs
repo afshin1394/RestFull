@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace RestApi.Controllers
 {
-    [Route("api/Question")]
+    [Route("api/[controller]")]
     public class QuestionController : Controller
     {
         private readonly ILogger<QuestionController> _logger;
@@ -57,12 +57,6 @@ namespace RestApi.Controllers
                 return Created(Request.Path.Value, question);
             }
             return BadRequest();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

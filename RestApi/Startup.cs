@@ -40,6 +40,8 @@ namespace RestApi
             //{
             //    options.JsonSerializerOptions.IgnoreNullValues = true;
             //});
+
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<AppDBContext>(options =>
@@ -51,7 +53,7 @@ namespace RestApi
             services.AddScoped<IRepository<DareInput>, DareRepository>();
 
             services.AddScoped<IRepository<QuestionInput>, QuestionRepository>();
-
+            services.AddSwaggerGen();
 
             //services
             //.AddMvcCore(options =>
@@ -86,7 +88,12 @@ namespace RestApi
                
             }
 
-
+            app.UseSwagger();
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                options.RoutePrefix = string.Empty;
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

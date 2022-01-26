@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RestApi.Controllers
 {
-    [Route("api/Dare")]
+    [Route("api/[controller]")]
     public class DareController : Controller
     {
         private readonly ILogger<DareController> _logger;

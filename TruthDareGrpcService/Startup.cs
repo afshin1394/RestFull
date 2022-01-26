@@ -1,28 +1,13 @@
-﻿using ApplicationService.DareRepository;
-using ApplicationService.DareRepository.ViewModels.DareViewModel.Inputs;
-using ApplicationService.QuestionR;
+﻿using ApplicationService.QuestionR;
 using ApplicationService.QuestionRepository.ViewModels.QuestionViewModel.Inputs;
-using AutoMapper;
 using EFDataAccessLibrary.Commons;
-using EFDataAccessLibrary.DataAccess;
-using EFDataAccessLibrary.Models;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TruthDareGrpcService.Dare.Protos;
-using TruthDareGrpcService.Protos;
 using TruthDareGrpcService.Services;
 
 
@@ -51,7 +36,6 @@ namespace TruthDareGrpcService
             services.AddAutoMapper(typeof(Startup));
             services.AddSingleton<IRepository<QuestionInput>, QuestionRepository>();
             //services.AddSingleton<IRepository<Dare>, DareRepository>();
-
 
 
 
