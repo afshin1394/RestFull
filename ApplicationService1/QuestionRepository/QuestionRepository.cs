@@ -56,15 +56,14 @@ namespace ApplicationService.QuestionR
         }
 
     
-        public async Task<IEnumerable<QuestionInput>> FindByID(int id)
+        public async Task<IEnumerable<QuestionInput>> FindByID(object id)
         {
-            return _mapper.Map< IEnumerable<Question>, IEnumerable<QuestionInput>>(appDBContext.Questions.Where(e => e.CategoryID == id)); 
+            return ObjectMapper.Mapper.Map< IEnumerable<Question>, IEnumerable<QuestionInput>>(appDBContext.Questions.Where(e => e.CategoryID == (int)id)); 
         }
 
         public async Task<IEnumerable<QuestionInput>> GetAll()
         {
             var result =  ObjectMapper.Mapper.Map<IEnumerable<Question>, IEnumerable<QuestionInput>>(appDBContext.Questions.AsEnumerable());
-            //var result = _mapper.Map<IEnumerable<Question>, IEnumerable<QuestionInput>>(appDBContext.Questions.AsEnumerable());
       
             return result;
         }

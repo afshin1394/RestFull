@@ -15,7 +15,7 @@ namespace EFDataAccessLibrary.Models
         public string CategoryName { get; set; }
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-       
+      
         public Guid DareGuid { get; set; } =  Guid.NewGuid();
         public string DareStr { get; set; }
     }

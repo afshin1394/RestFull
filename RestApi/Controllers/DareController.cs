@@ -14,13 +14,11 @@ namespace RestApi.Controllers
     public class DareController : Controller
     {
         private readonly ILogger<DareController> _logger;
-        private readonly IMapper _mapper;
         private readonly IRepository<DareInput> _repository;
 
-        public DareController(ILogger<DareController> logger, IMapper mapper, IRepository<DareInput> repository)
+        public DareController(ILogger<DareController> logger, IRepository<DareInput> repository)
         {
             _logger = logger;
-            _mapper = mapper;
             _repository = repository;
         }
 
@@ -47,7 +45,7 @@ namespace RestApi.Controllers
         }
 
         [Produces("application/json")]
-        [HttpPost("DeleteQuestion")]
+        [HttpPost("DeleteDare")]
         public IActionResult DeleteQuestion([FromQuery(Name = "Guid")] Guid id)
         {
             var dare = _repository.Delete(id);

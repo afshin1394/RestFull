@@ -19,10 +19,12 @@ namespace EFDataAccessLibrary.DataAccess
             //this.Database.ExecuteSqlRaw("Truncate dbo.TruthDare.Question");
         }
 
-    
+
 
         public DbSet<Question> Questions { get; set; }
         public DbSet<Dare> Dares { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
 
 
     }

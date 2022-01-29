@@ -1,3 +1,5 @@
+using ApplicationService.CategoryRepository;
+using ApplicationService.CategoryRepository.ViewModels;
 using ApplicationService.DareRepository;
 using ApplicationService.DareRepository.ViewModels.DareViewModel.Inputs;
 using ApplicationService.QuestionR;
@@ -53,6 +55,9 @@ namespace RestApi
             services.AddScoped<IRepository<DareInput>, DareRepository>();
 
             services.AddScoped<IRepository<QuestionInput>, QuestionRepository>();
+
+            services.AddScoped<IRepository<CategoryInput>, CategoryRepository>();
+
             services.AddSwaggerGen();
 
             //services

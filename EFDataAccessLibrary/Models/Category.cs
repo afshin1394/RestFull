@@ -8,16 +8,21 @@ using System.Threading.Tasks;
 
 namespace EFDataAccessLibrary.Models
 {
-   public class Question
+    public class Category
     {
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid CategoryGuid { get; set; } = Guid.NewGuid();
+
         public int CategoryID { get; set; }
+
         public string CategoryName { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int CategorySection { get; set; }
+      
+        public string CategoryDescription { get; set; }
 
-        public Guid QuestionGuid { get; set; } = Guid.NewGuid();
-        public string QuestionStr { get; set; }
+        public string CategoryImage { get; set; }
+
     }
 }
-

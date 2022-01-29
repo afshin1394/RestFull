@@ -39,16 +39,16 @@ namespace ApplicationService.DareRepository
             return ObjectMapper.Mapper.Map<Dare, DareInput>(search);
         }
 
-        public async Task<IEnumerable<DareInput>> FindByID(int id)
+        public async Task<IEnumerable<DareInput>> FindByID(object id)
         {
-            return ObjectMapper.Mapper.Map<IEnumerable<Dare>, IEnumerable<DareInput>>(appDBContext.Dares.Where(e => e.CategoryID == id));
+            return ObjectMapper.Mapper.Map<IEnumerable<Dare>, IEnumerable<DareInput>>(appDBContext.Dares.Where(e => e.CategoryID == (int)id));
         }
 
         public async Task<IEnumerable<DareInput>> GetAll()
         {
-            var result = ObjectMapper.Mapper.Map<IEnumerable<Dare>, IEnumerable<DareInput>>(appDBContext.Dares.AsEnumerable());
+            var result =  ObjectMapper.Mapper.Map<IEnumerable<Dare>, IEnumerable<DareInput>>(appDBContext.Dares.AsEnumerable());
 
-            return result;
+            return  result;
         }
 
         public bool SaveChanges()

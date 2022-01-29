@@ -11,7 +11,8 @@ namespace EFDataAccessLibrary.Commons
         public Task<IEnumerable<T>> GetAll();
         public T Add(T t);
         public T Delete(object t);
-        public Task<IEnumerable<T>> FindByID(int id);
+        public Task<IEnumerable<T>> FindByID(object id);
+        
         public bool SaveChanges();
 
     }

@@ -16,4 +16,12 @@ namespace Utilities.Enums
             
 
     }
+    public enum CategoriesSection
+    {
+        Question = 0
+     , Dare = 1
+     , DareAndQuestion = 2
+
+
+    }
 }
