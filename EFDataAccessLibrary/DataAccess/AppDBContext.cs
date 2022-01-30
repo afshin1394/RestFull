@@ -25,6 +25,7 @@ namespace EFDataAccessLibrary.DataAccess
         public DbSet<Dare> Dares { get; set; }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Bottle> bottles { get; set; }
 
 
     }

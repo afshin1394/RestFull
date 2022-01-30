@@ -22,6 +22,15 @@ namespace Utilities.Enums
      , Dare = 1
      , DareAndQuestion = 2
 
+    }
+
+    public enum BottleCategory
+    {
+        Free = 0
+    , Special = 1
+    , Golden = 2
+    , Gift = 3
+
 
     }
 }

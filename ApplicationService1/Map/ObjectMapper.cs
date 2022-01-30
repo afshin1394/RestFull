@@ -24,6 +24,7 @@ namespace ApplicationService.Map
                 cfg.AddProfile<QuestionMapper>();
                 cfg.AddProfile<DareMapper>();
                 cfg.AddProfile<CategoryMapper>();
+                cfg.AddProfile<BottleMapper>();
 
             });
 

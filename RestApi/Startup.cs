@@ -1,3 +1,5 @@
+using ApplicationService.BottleRepository;
+using ApplicationService.BottleRepository.ViewModels;
 using ApplicationService.CategoryRepository;
 using ApplicationService.CategoryRepository.ViewModels;
 using ApplicationService.DareRepository;
@@ -57,6 +59,8 @@ namespace RestApi
             services.AddScoped<IRepository<QuestionInput>, QuestionRepository>();
 
             services.AddScoped<IRepository<CategoryInput>, CategoryRepository>();
+
+            services.AddScoped<IRepository<BottleInput>, BottleRepository>();
 
             services.AddSwaggerGen();
 
