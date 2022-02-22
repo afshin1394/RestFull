@@ -54,6 +54,7 @@ namespace RestApi
                 services.AddDbContext<AppDBContext>();
 
             });
+
             services.AddScoped<IRepository<DareInput>, DareRepository>();
 
             services.AddScoped<IRepository<QuestionInput>, QuestionRepository>();
